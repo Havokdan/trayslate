@@ -1544,26 +1544,26 @@ begin
       Info.Handled := True;
     end
     else
-    if Info.CtrlDown and (Info.KeyCode = VK_A) then
+    if Info.CtrlDown and not Info.AltDown and (Info.KeyCode = VK_A) then
     begin
       formPopupTrayslate.MemoTarget.SelectAll;
       Info.Handled := True;
     end
     else
-    if Info.CtrlDown and (Info.KeyCode = VK_C) then
+    if Info.CtrlDown and not Info.AltDown and (Info.KeyCode = VK_C) then
     begin
       formPopupTrayslate.MemoTarget.CopyToClipboard;
       Info.Handled := True;
     end
     else
-    if Info.CtrlDown and (Info.KeyCode = VK_V) then
+    if Info.CtrlDown and not Info.AltDown and (Info.KeyCode = VK_V) then
     begin
       formPopupTrayslate.MemoTarget.PasteFromClipboard;
       UpdateMemoState(formPopupTrayslate.MemoTarget);
       Info.Handled := True;
     end
     else
-    if Info.CtrlDown and (Info.KeyCode = VK_Z) then
+    if Info.CtrlDown and not Info.AltDown and (Info.KeyCode = VK_Z) then
     begin
       formPopupTrayslate.MemoTarget.Undo;
       Info.Handled := True;
@@ -2557,12 +2557,18 @@ end;
 
 procedure TformTrayslate.ComboSourceKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
+  // Skip AltGr-like input so national characters are typed, not dropped down
+  if TLocalize.IsCharInputModifier(Shift) then Exit;
+
   if not (Key in [VK_RETURN, VK_TAB]) then
     ComboSource.DroppedDown := True;
 end;
 
 procedure TformTrayslate.ComboTargetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
+  // Skip AltGr-like input so national characters are typed, not dropped down
+  if TLocalize.IsCharInputModifier(Shift) then Exit;
+
   if not (Key in [VK_RETURN, VK_TAB]) then
     ComboTarget.DroppedDown := True;
 end;
@@ -2591,9 +2597,13 @@ end;
 procedure TformTrayslate.MemoSourceKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 var
   NowTime: DWORD;
+  CharInput: boolean;
 begin
+  // AltGr-like input types national chars and must not fire shortcuts
+  CharInput := TLocalize.IsCharInputModifier(Shift);
+
   // On pasting with Ctrl+V
-  if (ssCtrl in Shift) and (Key = VK_V) then
+  if (not CharInput) and (ssCtrl in Shift) and (Key = VK_V) then
   begin
     (Sender as TRichMemo).PasteFromClipboard;
     UpdateMemoState((Sender as TRichMemo));
@@ -2602,7 +2612,7 @@ begin
   end;
 
   // Remember key code if this is a Ctrl combination that does not edit text
-  if (ssCtrl in Shift) and not (Key in [VK_V, VK_X, VK_Z, VK_Y, VK_BACK, VK_DELETE]) then
+  if (not CharInput) and (ssCtrl in Shift) and not (Key in [VK_V, VK_X, VK_Z, VK_Y, VK_BACK, VK_DELETE]) then
     FIgnoreKeyUpCode := Key
   else
     FIgnoreKeyUpCode := 0;
@@ -2706,7 +2716,8 @@ begin
     end;
 
     // Ignore key combinations with Ctrl that do not modify text, like Ctrl+C
-    if (ssCtrl in Shift) and not (Key in [VK_V, VK_X, VK_Z, VK_Y, VK_BACK, VK_DELETE]) then
+    if (not TLocalize.IsCharInputModifier(Shift)) and (ssCtrl in Shift) and not
+      (Key in [VK_V, VK_X, VK_Z, VK_Y, VK_BACK, VK_DELETE]) then
     begin
       TimerTranslate.Enabled := False;
       Exit;
@@ -2737,6 +2748,9 @@ end;
 
 procedure TformTrayslate.MemoTargetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
+  // Skip AltGr-like input so national characters are not stolen by Ctrl+V
+  if TLocalize.IsCharInputModifier(Shift) then Exit;
+
   if (ssCtrl in Shift) and (Key = VK_V) then // Ctrl + V
   begin
     (Sender as TRichMemo).PasteWithLineEnding;
