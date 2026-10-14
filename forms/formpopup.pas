@@ -171,6 +171,7 @@ begin
   end;
 
   MemoTarget.DisableBuiltInDragDrop;
+  MemoTarget.EnableSmartSelection;
   FDropTarget := TTextDropTarget.Create(Self);
   FDropTarget.Target := MemoTarget;
   FDropTarget.AddSubTarget(PanelTarget);

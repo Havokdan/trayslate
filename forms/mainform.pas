@@ -916,6 +916,9 @@ begin
   MemoSource.EnableScrollbarFix(PanelSource);
   MemoTarget.EnableScrollbarFix(PanelTarget);
 
+  MemoSource.EnableSmartSelection;
+  MemoTarget.EnableSmartSelection;
+
   // Set cursor to end of text
   if MemoSource.GetBottomSpace > 0 then
   begin
