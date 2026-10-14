@@ -42,8 +42,6 @@ uses
   LMessages,
   MouseAndKeyInput,
   RichMemo,
-  RichSpellChecker,
-  SpellUtils,
   OneShotTimer,
   globalkeyboardhook,
   globalmousehook,
@@ -51,6 +49,7 @@ uses
   translate,
   network,
   Consts,
+  SpellChecker,
   osutils,
   stringhelper,
   hotkeyhelper,
@@ -207,6 +206,7 @@ type
     Separator7: TMenuItem;
     Separator8: TMenuItem;
     Separator9: TMenuItem;
+    SpellSource: TSpellChecker;
     Splitter: TSplitter;
     TimerUnapply: TTimer;
     TimerAnimate: TTimer;
@@ -332,7 +332,6 @@ type
     procedure ComboSourceKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure ComboTargetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure MemoSourceChange(Sender: TObject);
-    procedure MemoSourceContextPopup(Sender: TObject; MousePos: TPoint; var Handled: boolean);
     procedure MemoSourceKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure MemoSourceKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure MemoTargetKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
@@ -440,11 +439,6 @@ type
     FBlockTrayUpdate: boolean;
     FProcessingPairClick: boolean;
     FNeedRebuildPairs: boolean;
-    FSpellChecker: TRichSpellChecker;
-    FSpellTimer: TTimer;
-    FUpdatingSpellCheck: boolean;
-    FSpellErrors: TSpellErrorArray;
-    FSpellText: string;
     FIgnoreKeyUpCode: word;
 
     // Non sorted combo named languages
@@ -649,11 +643,8 @@ type
     function UpdatePairLanguage(const Pair: string): string;
     procedure UpdateInputState(AEnabled: boolean; ReenableHotKeys: boolean = True);
     procedure UpdateMouseHookState;
-    procedure DoSetTrayIcon(Data: PtrInt);
     procedure UpdateSpellCheck;
-    procedure DoSpellCheck;
-    procedure ApplySpellCheck;
-    procedure SpellCheckNeeded(Sender: TObject);
+    procedure DoSetTrayIcon(Data: PtrInt);
     procedure DoCheckUpdates(Data: PtrInt);
     procedure ShowCustomHint(const AText: string; X: integer = 0; Y: integer = 0; Duration: integer = 3000);
     function GetParameterValue(AName: string; out ResultOk: boolean): string;
@@ -871,9 +862,6 @@ begin
   FProcessingPairClick := False;
   FNeedRebuildPairs := False;
   FFormSmallIcon := TIcon.Create;
-  FSpellChecker := TRichSpellChecker.Create(MemoSource);
-  FSpellChecker.OnSpellCheckNeeded := @SpellCheckNeeded;
-  FUpdatingSpellCheck := False;
   FIgnoreKeyUpCode := 0;
 
   // Components config
@@ -1030,7 +1018,6 @@ begin
   if TimerUnapply.Enabled then
     TimerUnapplyTimer(Self);
   ClearTimeout(FClickTimer);
-  ClearTimeout(FSpellTimer);
 
   {$IFDEF WINDOWS}
   UpdateInputState(False);
@@ -1105,7 +1092,6 @@ begin
     FreeAndNil(FFontPopup);
     FreeAndNil(FFormSmallIcon);
     FreeAndNil(FDropTarget);
-    FreeAndNil(FSpellChecker);
   end;
 end;
 
@@ -2575,23 +2561,8 @@ end;
 
 procedure TformTrayslate.MemoSourceChange(Sender: TObject);
 begin
-  if FSpellCheck and not FUpdatingSpellCheck then
-  begin
-    ClearTimeout(FSpellTimer);
-    SetTimeout(FSpellTimer, 1000, @UpdateSpellCheck);
-  end;
   if MemoSource.Lines.Count = 0 then
     UpdateMemoState(MemoSource);
-end;
-
-procedure TformTrayslate.MemoSourceContextPopup(Sender: TObject; MousePos: TPoint; var Handled: boolean);
-var
-  P: TPoint;
-begin
-  P := MemoSource.ClientToScreen(MousePos);
-  if not FSpellChecker.ShowContextMenu(MousePos.X, MousePos.Y) then
-    PopupSource.PopUp(P.X, P.Y);
-  Handled := True;
 end;
 
 procedure TformTrayslate.MemoSourceKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
@@ -3462,6 +3433,7 @@ begin
     UpdateComboState(ASetDefault);
   UpdateAutoDetect(AutoDetect, rautodetect);
   UpdateCheckMenuPair;
+  UpdateSpellCheck;
   SetTrayIcon;
   SetHints;
 end;
@@ -4537,55 +4509,19 @@ begin
     Assigned(formPopupTrayslate) and formPopupTrayslate.Visible and (not formPopupTrayslate.PopupOpen));
 end;
 
+procedure TformTrayslate.UpdateSpellCheck;
+begin
+  if not Assigned(SpellSource) then Exit;
+  SpellSource.Enabled := FSpellCheck;
+  SpellSource.AddEmptySuggestions := FSpellCheckEmptySuggestions;
+  SpellSource.Language := FLangSource;
+  if FSpellCheck then
+    SpellSource.CheckNow;
+end;
+
 procedure TformTrayslate.DoSetTrayIcon(Data: PtrInt);
 begin
   SetTrayIcon;
-end;
-
-procedure TformTrayslate.UpdateSpellCheck;
-begin
-  // If spell checking is disabled, clear underlines immediately in the main thread
-  if not FSpellCheck then
-  begin
-    if Assigned(FSpellChecker) then
-      FSpellChecker.Clear;
-    Exit;
-  end;
-
-  if FUpdatingSpellCheck then Exit;
-  FUpdatingSpellCheck := True;
-  // Copy text in the main thread before starting the background task
-  FSpellText := MemoSource.Text;
-  // Run spell check in background and apply results in the main thread
-  RunAsync(@DoSpellCheck, @ApplySpellCheck);
-end;
-
-procedure TformTrayslate.DoSpellCheck;
-begin
-  // This method runs in a background thread and must not touch GUI
-  FSpellErrors := TSpell.CheckText(FSpellText, FLangSource, [scoSpelling], FSpellCheckEmptySuggestions);
-end;
-
-procedure TformTrayslate.ApplySpellCheck;
-begin
-  // This method is called in the main thread via Synchronize
-  if not Assigned(FSpellChecker) then
-  begin
-    FUpdatingSpellCheck := False;
-    Exit;
-  end;
-
-  // Apply the collected errors using the shared utility method
-  TSpell.ApplyErrors(FSpellChecker, FSpellErrors);
-  FUpdatingSpellCheck := False;
-end;
-
-procedure TformTrayslate.SpellCheckNeeded(Sender: TObject);
-begin
-  UpdateSpellCheck;
-
-  if FRealTime and Trans.ServiceRealTime then
-    TimerTranslate.Enabled := True;
 end;
 
 procedure TformTrayslate.DoCheckUpdates(Data: PtrInt);
@@ -4868,6 +4804,7 @@ begin
     ComboSource.Hint := LongestString([FLangSource, ComboSource.Text]);
     Trans.LangSource := FLangSource;
     UpdateCheckMenuPair;
+    UpdateSpellCheck;
     if FIconTwoLang then SetTrayIcon;
   end;
 end;
