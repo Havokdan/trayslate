@@ -1165,6 +1165,7 @@ end;
 procedure TformTrayslate.FormResize(Sender: TObject);
 begin
   PanelLang.Top := 0;
+  FormGrip.Visible := not MemoTarget.VertScrollBar.IsScrollBarVisible;
 
   Application.QueueAsyncCall(@DoRealignSplit, 0);
 end;
@@ -5466,6 +5467,8 @@ begin
 
   if not Visible and (not Assigned(formPopupTrayslate) or not formPopupTrayslate.Visible) then
     ShowCustomHint(TrayIcon.Hint);
+
+  FormGrip.Visible := not MemoTarget.VertScrollBar.IsScrollBarVisible;
 
   FTranslateThread := nil;
   TranslateTarget := nil;
