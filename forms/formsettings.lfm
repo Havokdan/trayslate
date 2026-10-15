@@ -115,7 +115,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             DropDownCount = 15
             ItemHeight = 15
             Style = csDropDownList
-            TabOrder = 1
+            TabOrder = 2
             OnChange = SettingChange
             OnMouseWheel = ComboMouseWheel
           end
@@ -148,7 +148,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             DropDownCount = 15
             ItemHeight = 15
             Style = csDropDownList
-            TabOrder = 4
+            TabOrder = 5
             OnChange = SettingChange
             OnMouseWheel = ComboMouseWheel
           end
@@ -181,7 +181,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             DropDownCount = 15
             ItemHeight = 15
             Style = csDropDownList
-            TabOrder = 5
+            TabOrder = 6
             OnChange = SettingChange
             OnMouseWheel = ComboMouseWheel
           end
@@ -192,7 +192,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 112
             Width = 227
             Caption = 'Smart Swap For Languages Outside Pair'
-            TabOrder = 2
+            TabOrder = 3
             OnChange = SettingChange
           end
           object CheckSmartHard: TCheckBox
@@ -202,7 +202,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 144
             Width = 248
             Caption = 'Always Prefer Primary/Secondary Language'
-            TabOrder = 3
+            TabOrder = 4
             OnChange = SettingChange
           end
           object CheckBuiltInDetect: TCheckBox
@@ -212,7 +212,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 40
             Width = 227
             Caption = 'Use Built-In Language Detection Engine'
-            TabOrder = 6
+            TabOrder = 1
             OnChange = SettingChange
           end
         end
@@ -389,7 +389,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 136
             Width = 125
             Caption = 'Show Language Pair'
-            TabOrder = 3
+            TabOrder = 4
             OnChange = SettingChange
           end
           object ColorIconBackground: TColorBox
@@ -473,7 +473,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 168
             Width = 85
             Caption = 'Circular Icon'
-            TabOrder = 4
+            TabOrder = 5
             OnChange = SettingChange
           end
           object LabelMouseModeFrame: TLabel
@@ -497,7 +497,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Anchors = [akTop, akLeft, akRight]
             DropDownCount = 15
             ItemHeight = 16
-            TabOrder = 5
+            TabOrder = 3
             OnChange = SettingChange
             OnMouseWheel = ComboMouseWheel
           end
@@ -643,7 +643,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 208
             Width = 122
             Caption = 'Auto-Hide Controls'
-            TabOrder = 8
+            TabOrder = 9
             OnChange = SettingChange
           end
           object PanelFontPopup: TPanel
@@ -698,7 +698,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 272
             Width = 400
             Anchors = [akTop, akLeft, akRight]
-            TabOrder = 10
+            TabOrder = 11
             OnChange = SettingChange
             OnMouseWheel = ComboMouseWheel
           end
@@ -709,7 +709,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 240
             Width = 83
             Caption = 'Auto Height'
-            TabOrder = 9
+            TabOrder = 10
             OnChange = SettingChange
           end
           object CheckAutoHidePopup: TCheckBox
@@ -719,7 +719,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 176
             Width = 204
             Caption = 'Auto-Hide Popup On Outside Click'
-            TabOrder = 11
+            TabOrder = 8
             OnChange = SettingChange
           end
         end
@@ -963,7 +963,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             GridLineWidth = 0
             Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goColSizing, goEditing, goThumbTracking, goSmoothScroll, goHeaderHotTracking, goCellHints, goRowHighlight]
             RowCount = 1
-            TabOrder = 0
+            TabOrder = 3
             OnDrawCell = GridHotkeysDrawCell
             OnEditingDone = GridHotkeysEditingDone
             OnGetCellHint = GridHotkeysGetCellHint
@@ -977,7 +977,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 8
             Width = 136
             Caption = 'Enable Global Hotkeys'
-            TabOrder = 1
+            TabOrder = 0
             OnChange = SettingChange
           end
           object BtnDefaultHotkeys: TButton
@@ -997,7 +997,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
             Top = 40
             Width = 229
             Caption = 'Use Insert for Copy and Paste Emulation'
-            TabOrder = 3
+            TabOrder = 1
             OnChange = SettingChange
           end
         end
@@ -1317,7 +1317,7 @@ object formSettingsTrayslate: TformSettingsTrayslate
           )
           ColWidths = (
             200
-            382
+            365
           )
         end
       end

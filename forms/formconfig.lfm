@@ -232,7 +232,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 128
             Width = 182
             Caption = 'Allow auto-swap language pair'
-            TabOrder = 2
+            TabOrder = 4
             OnChange = ValueChange
           end
           object LabelServiceOrder: TLabel
@@ -261,7 +261,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Width = 423
             Anchors = [akTop, akLeft, akRight, akBottom]
             ScrollBars = ssAutoVertical
-            TabOrder = 6
+            TabOrder = 8
             OnChange = ValueChange
             OnKeyDown = MemoKeyDown
           end
@@ -295,7 +295,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Anchors = [akTop, akLeft, akRight]
             DropDownCount = 15
             ItemHeight = 16
-            TabOrder = 5
+            TabOrder = 2
             OnChange = ValueChange
           end
           object ImagePreview: TImage
@@ -320,7 +320,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 160
             Width = 159
             Caption = 'Allow translate as you type'
-            TabOrder = 3
+            TabOrder = 5
             OnChange = ValueChange
           end
           object CheckServiceOnlyButton: TCheckBox
@@ -329,7 +329,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 192
             Width = 247
             Caption = 'Allow translation only by translation button'
-            TabOrder = 4
+            TabOrder = 6
             OnChange = ValueChange
           end
           object CheckServiceVisible: TCheckBox
@@ -340,7 +340,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Caption = 'Visible in menu'
             Checked = True
             State = cbChecked
-            TabOrder = 7
+            TabOrder = 3
             OnChange = ValueChange
           end
           object CheckServiceProxy: TCheckBox
@@ -349,7 +349,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 224
             Width = 81
             Caption = 'Allow proxy'
-            TabOrder = 8
+            TabOrder = 7
             OnChange = ValueChange
           end
         end
@@ -445,7 +445,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 416
             Width = 406
             Anchors = [akTop, akLeft, akRight]
-            TabOrder = 6
+            TabOrder = 7
             OnChange = ValueChange
           end
           object LabelUrl: TLabel
@@ -465,7 +465,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Width = 406
             Anchors = [akTop, akLeft, akRight]
             ScrollBars = ssAutoVertical
-            TabOrder = 4
+            TabOrder = 5
             WantReturns = False
             OnChange = ValueChange
           end
@@ -498,7 +498,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Width = 406
             Anchors = [akTop, akLeft, akRight]
             ScrollBars = ssAutoBoth
-            TabOrder = 7
+            TabOrder = 8
             WordWrap = False
             OnChange = ValueChange
             OnKeyDown = MemoKeyDown
@@ -509,7 +509,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 384
             Width = 406
             Anchors = [akTop, akLeft, akRight]
-            TabOrder = 5
+            TabOrder = 6
             OnChange = ValueChange
           end
           object LabelAccept: TLabel
@@ -665,7 +665,7 @@ object formConfigTrayslate: TformConfigTrayslate
             Top = 280
             Width = 406
             Anchors = [akTop, akLeft, akRight]
-            TabOrder = 8
+            TabOrder = 4
             OnChange = ValueChange
           end
           object LabelMaxLength: TLabel
@@ -1041,7 +1041,7 @@ object formConfigTrayslate: TformConfigTrayslate
         ClientHeight = 262
         ClientWidth = 568
         ParentBackground = False
-        TabOrder = 1
+        TabOrder = 2
         object PanelScript: TPanel
           Left = 5
           Height = 247
@@ -1817,7 +1817,7 @@ object formConfigTrayslate: TformConfigTrayslate
         ClientHeight = 262
         ClientWidth = 568
         ParentBackground = False
-        TabOrder = 1
+        TabOrder = 2
         object PanelScript1: TPanel
           Left = 5
           Height = 247
