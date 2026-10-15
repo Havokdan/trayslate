@@ -168,6 +168,12 @@ begin
     MemoTarget.ZoomFactor := formTrayslate.FormPopupZoomFactor;
     MemoTarget.BiDiMode := formTrayslate.FormPopupBidiMode;
     aBidiRightToLeft.Checked := MemoTarget.BiDiMode = bdRightToLeft;
+
+    // Set FormStyle up front to avoid a RecreateWnd that resets position on first show
+    if formTrayslate.StayOnTop then
+      FormStyle := fsSystemStayOnTop
+    else
+      FormStyle := fsNormal;
   end;
 
   MemoTarget.DisableBuiltInDragDrop;

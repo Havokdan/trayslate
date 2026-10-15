@@ -1627,7 +1627,6 @@ end;
 
 procedure TFormTrayslate.OnHookLeftUp(Sender: TObject; const Info: TMouseEventInfo);
 var
-  packedCoords: PtrInt;
   dx, dy: integer;
   TimeDiff: DWORD;
   DistanceSq: integer;
@@ -1656,8 +1655,8 @@ begin
   begin
     if (not MouseModeCtrl) or (FLastMouseInfo.CtrlDown and Info.CtrlDown) then
     begin
-      packedCoords := Info.Y shl 16 + Info.X;
-      Application.QueueAsyncCall(@OnTranslateMouseMode, packedCoords);
+      FClickPoint := Point(Info.X, Info.Y);
+      Application.QueueAsyncCall(@OnTranslateMouseMode, 0);
     end;
     // We don't reset FClickCount here, it resets in OnHookLeftDown by timeout
     Exit;
@@ -1674,8 +1673,8 @@ begin
     FClickCount := 0; // Break sequence on long press
     if (not MouseModeCtrl) or (FLastMouseInfo.CtrlDown and Info.CtrlDown) then
     begin
-      packedCoords := Info.Y shl 16 + Info.X;
-      Application.QueueAsyncCall(@OnTranslateMouseMode, packedCoords);
+      FClickPoint := Point(Info.X, Info.Y);
+      Application.QueueAsyncCall(@OnTranslateMouseMode, 0);
     end;
   end;
 end;
@@ -1683,7 +1682,6 @@ end;
 procedure TFormTrayslate.OnTranslateMouseMode(Data: PtrInt);
 begin
   if FClickCount > 4 then Exit;
-  FClickPoint := Point(Data and $FFFF, Data shr 16);
   ClearTimeout(FClickTimer);
   if (FClickCount >= 1) and (FClickCount < 4) then
     SetTimeout(FClickTimer, 100, @OnTranslateMouseModeTimer)
@@ -4635,20 +4633,22 @@ begin
   if not formPopupTrayslate.Visible then
   begin
     formPopupTrayslate.Position := poDesigned;
-    if X > 0 then
+    // Use the provided position; negative values are valid on multi-monitor setups
+    if X <> 0 then
       formPopupTrayslate.Left := X
     else
     if FormPopupLeft > 0 then
       formPopupTrayslate.Left := FormPopupLeft
     else
       formPopupTrayslate.Position := poDesktopCenter;
-    if Y > 0 then
+    if Y <> 0 then
       formPopupTrayslate.Top := Y
     else
     if FormPopupTop > 0 then
       formPopupTrayslate.Top := FormPopupTop
     else
       formPopupTrayslate.Position := poDesktopCenter;
+
     if FormPopupWidth > 0 then
       formPopupTrayslate.Width := FormPopupWidth;
     if FormPopupHeight > 0 then
@@ -4709,14 +4709,9 @@ begin
     formButtonTrayslate := TformButtonTrayslate.Create(Application);
 
   formButtonTrayslate.Position := poDesigned;
-  if X > 0 then
-    formButtonTrayslate.Left := X + BUTTON_DELTA
-  else
-    formButtonTrayslate.Position := poDesktopCenter;
-  if Y > 0 then
-    formButtonTrayslate.Top := Y + BUTTON_DELTA
-  else
-    formButtonTrayslate.Position := poDesktopCenter;
+  // Use the exact click point; negative values are valid on multi-monitor setups
+  formButtonTrayslate.Left := X + BUTTON_DELTA;
+  formButtonTrayslate.Top := Y + BUTTON_DELTA;
 
   // Keep button inside screen always (same as AdjustPopupHeight)
   formButtonTrayslate.FitToScreen;
