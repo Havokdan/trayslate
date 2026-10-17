@@ -260,6 +260,7 @@ type
     FOriginalHotKeyTransFromControl: THotKeyData;
     FOriginalHotKeyTransControl: THotKeyData;
     FOriginalHotKeyTransControlPopup: THotKeyData;
+    FOriginalHotKeyTransOCR: THotKeyData;
     FOriginalHotKeyFastAllowHotKeys: THotKeyData;
     FOriginalHotKeyFastEnableMouseMode: THotKeyData;
     FOriginalHotKeyFastMouseModeCtrl: THotKeyData;
@@ -289,6 +290,7 @@ type
     FHotKeyTransFromControl: THotKeyData;
     FHotKeyTransControl: THotKeyData;
     FHotKeyTransControlPopup: THotKeyData;
+    FHotKeyTransOCR: THotKeyData;
     FHotKeyFastAllowHotKeys: THotKeyData;
     FHotKeyFastEnableMouseMode: THotKeyData;
     FHotKeyFastMouseModeCtrl: THotKeyData;
@@ -343,7 +345,7 @@ var
   formSettingsTrayslate: TformSettingsTrayslate;
 
 const
-  HeaderRows: set of byte = [1, 10, 22];
+  HeaderRows: set of byte = [1, 11, 23];
   ColorBevel = $00D9D9D9;
   ColorBevelDark = $00555555;
 
@@ -393,6 +395,10 @@ resourcestring
   rtranscontrolpopup = 'Translate Selected Text to Popup Window';
   rtranscontrolpopup_hint = 'Translates selected text from the active application to a popup window near the mouse cursor';
   rtranscontrolpopup_default = 'Default: Ctrl+Shift+X';
+
+  rtransocr = 'Translate From Screen Area (OCR)';
+  rtransocr_hint = 'Recognize text from a selected screen area and translate it';
+  rtransocr_default = 'Default Ctrl+Shift+O';
 
   // HotKeys Fast Settings
   rfastallowhotkeys = 'Enable Global Hotkeys';
@@ -1186,14 +1192,14 @@ begin
   Handled := True; // Block parent ScrollBox
 end;
 
-procedure TformSettingsTrayslate.ClbEnabledLangMouseWheel(Sender: TObject;
-  Shift: TShiftState; WheelDelta: integer; MousePos: TPoint; var Handled: boolean);
+procedure TformSettingsTrayslate.ClbEnabledLangMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: integer;
+  MousePos: TPoint; var Handled: boolean);
 {$IFDEF MSWINDOWS}
 var
   CurrPos, NewPos: integer;
 {$ENDIF}
 begin
-{$IFDEF MSWINDOWS}
+  {$IFDEF MSWINDOWS}
   if ClbEnabledLang.Columns > 1 then
   begin
     // Get current horizontal scroll position
@@ -1207,7 +1213,7 @@ begin
 
     Handled := True;
   end;
-{$ENDIF}
+  {$ENDIF}
 end;
 
 procedure TformSettingsTrayslate.ComboMouseWheel(Sender: TObject; Shift: TShiftState; WheelDelta: integer;
@@ -1405,7 +1411,7 @@ end;
 function TformSettingsTrayslate.GetHotKeyByRow(Row: integer): THotKeyData;
 begin
   case Row of
-    // Common HotKeys (rows 2-9, header at row 1)
+    // Common HotKeys (rows 2-10, header at row 1)
     2: Result := FHotKeyApp;
     3: Result := FHotKeyTransSwap;
     4: Result := FHotKeyTransFromClipboard;
@@ -1414,28 +1420,29 @@ begin
     7: Result := FHotKeyTransFromControl;
     8: Result := FHotKeyTransControl;
     9: Result := FHotKeyTransControlPopup;
-    // Fast Settings HotKeys (rows 11-20, header at row 10)
-    11: Result := FHotKeyFastAllowHotKeys;
-    12: Result := FHotKeyFastEnableMouseMode;
-    13: Result := FHotKeyFastMouseModeCtrl;
-    14: Result := FHotKeyFastAutoSwap;
-    15: Result := FHotKeyFastAutoAddLangPairs;
-    16: Result := FHotKeyFastRealTime;
-    17: Result := FHotKeyFastAutoCopy;
-    18: Result := FHotKeyFastVerticalSplit;
-    19: Result := FHotKeyFastAutoHidePopup;
-    20: Result := FHotKeyFastAutoHeight;
-    21: Result := FHotKeyFastSpellCheck;
-    // Recent HotKeys (rows 22-30, header at row 22)
-    23: Result := FHotKeyRecent1;
-    24: Result := FHotKeyRecent2;
-    25: Result := FHotKeyRecent3;
-    26: Result := FHotKeyRecent4;
-    27: Result := FHotKeyRecent5;
-    28: Result := FHotKeyRecent6;
-    29: Result := FHotKeyRecent7;
-    30: Result := FHotKeyRecent8;
-    31: Result := FHotKeyRecent9;
+    10: Result := FHotKeyTransOCR;
+    // Fast Settings HotKeys (rows 12-22, header at row 11)
+    12: Result := FHotKeyFastAllowHotKeys;
+    13: Result := FHotKeyFastEnableMouseMode;
+    14: Result := FHotKeyFastMouseModeCtrl;
+    15: Result := FHotKeyFastAutoSwap;
+    16: Result := FHotKeyFastAutoAddLangPairs;
+    17: Result := FHotKeyFastRealTime;
+    18: Result := FHotKeyFastAutoCopy;
+    19: Result := FHotKeyFastVerticalSplit;
+    20: Result := FHotKeyFastAutoHidePopup;
+    21: Result := FHotKeyFastAutoHeight;
+    22: Result := FHotKeyFastSpellCheck;
+    // Recent HotKeys (rows 24-32, header at row 23)
+    24: Result := FHotKeyRecent1;
+    25: Result := FHotKeyRecent2;
+    26: Result := FHotKeyRecent3;
+    27: Result := FHotKeyRecent4;
+    28: Result := FHotKeyRecent5;
+    29: Result := FHotKeyRecent6;
+    30: Result := FHotKeyRecent7;
+    31: Result := FHotKeyRecent8;
+    32: Result := FHotKeyRecent9;
     else
       Result := Default(THotKeyData);
   end;
@@ -1453,28 +1460,27 @@ begin
     7: FHotKeyTransFromControl := HK;
     8: FHotKeyTransControl := HK;
     9: FHotKeyTransControlPopup := HK;
-    // Fast Settings HotKeys (rows 11-20, header at row 10)
-    11: FHotKeyFastAllowHotKeys := HK;
-    12: FHotKeyFastEnableMouseMode := HK;
-    13: FHotKeyFastMouseModeCtrl := HK;
-    14: FHotKeyFastAutoSwap := HK;
-    15: FHotKeyFastAutoAddLangPairs := HK;
-    16: FHotKeyFastRealTime := HK;
-    17: FHotKeyFastAutoCopy := HK;
-    18: FHotKeyFastVerticalSplit := HK;
-    19: FHotKeyFastAutoHidePopup := HK;
-    20: FHotKeyFastAutoHeight := HK;
-    21: FHotKeyFastSpellCheck := HK;
-    // Recent HotKeys (rows 22-30, header at row 22)
-    23: FHotKeyRecent1 := HK;
-    24: FHotKeyRecent2 := HK;
-    25: FHotKeyRecent3 := HK;
-    26: FHotKeyRecent4 := HK;
-    27: FHotKeyRecent5 := HK;
-    28: FHotKeyRecent6 := HK;
-    29: FHotKeyRecent7 := HK;
-    30: FHotKeyRecent8 := HK;
-    31: FHotKeyRecent9 := HK;
+    10: FHotKeyTransOCR := HK;
+    12: FHotKeyFastAllowHotKeys := HK;
+    13: FHotKeyFastEnableMouseMode := HK;
+    14: FHotKeyFastMouseModeCtrl := HK;
+    15: FHotKeyFastAutoSwap := HK;
+    16: FHotKeyFastAutoAddLangPairs := HK;
+    17: FHotKeyFastRealTime := HK;
+    18: FHotKeyFastAutoCopy := HK;
+    19: FHotKeyFastVerticalSplit := HK;
+    20: FHotKeyFastAutoHidePopup := HK;
+    21: FHotKeyFastAutoHeight := HK;
+    22: FHotKeyFastSpellCheck := HK;
+    24: FHotKeyRecent1 := HK;
+    25: FHotKeyRecent2 := HK;
+    26: FHotKeyRecent3 := HK;
+    27: FHotKeyRecent4 := HK;
+    28: FHotKeyRecent5 := HK;
+    29: FHotKeyRecent6 := HK;
+    30: FHotKeyRecent7 := HK;
+    31: FHotKeyRecent8 := HK;
+    32: FHotKeyRecent9 := HK;
     else
       ; // ignore
   end;
@@ -1492,28 +1498,29 @@ begin
     7: Result := FOriginalHotKeyTransFromControl;
     8: Result := FOriginalHotKeyTransControl;
     9: Result := FOriginalHotKeyTransControlPopup;
+    10: Result := FOriginalHotKeyTransOCR;
     // Fast Settings HotKeys (rows 11-20, header at row 10)
-    11: Result := FOriginalHotKeyFastAllowHotKeys;
-    12: Result := FOriginalHotKeyFastEnableMouseMode;
-    13: Result := FOriginalHotKeyFastMouseModeCtrl;
-    14: Result := FOriginalHotKeyFastAutoSwap;
-    15: Result := FOriginalHotKeyFastAutoAddLangPairs;
-    16: Result := FOriginalHotKeyFastRealTime;
-    17: Result := FOriginalHotKeyFastAutoCopy;
-    18: Result := FOriginalHotKeyFastVerticalSplit;
-    19: Result := FOriginalHotKeyFastAutoHidePopup;
-    20: Result := FOriginalHotKeyFastAutoHeight;
-    21: Result := FOriginalHotKeyFastSpellCheck;
+    12: Result := FOriginalHotKeyFastAllowHotKeys;
+    13: Result := FOriginalHotKeyFastEnableMouseMode;
+    14: Result := FOriginalHotKeyFastMouseModeCtrl;
+    15: Result := FOriginalHotKeyFastAutoSwap;
+    16: Result := FOriginalHotKeyFastAutoAddLangPairs;
+    17: Result := FOriginalHotKeyFastRealTime;
+    18: Result := FOriginalHotKeyFastAutoCopy;
+    19: Result := FOriginalHotKeyFastVerticalSplit;
+    20: Result := FOriginalHotKeyFastAutoHidePopup;
+    21: Result := FOriginalHotKeyFastAutoHeight;
+    22: Result := FOriginalHotKeyFastSpellCheck;
     // Recent HotKeys (rows 22-30, header at row 22)
-    23: Result := FOriginalHotKeyRecent1;
-    24: Result := FOriginalHotKeyRecent2;
-    25: Result := FOriginalHotKeyRecent3;
-    26: Result := FOriginalHotKeyRecent4;
-    27: Result := FOriginalHotKeyRecent5;
-    28: Result := FOriginalHotKeyRecent6;
-    29: Result := FOriginalHotKeyRecent7;
-    30: Result := FOriginalHotKeyRecent8;
-    31: Result := FOriginalHotKeyRecent9;
+    24: Result := FOriginalHotKeyRecent1;
+    25: Result := FOriginalHotKeyRecent2;
+    26: Result := FOriginalHotKeyRecent3;
+    27: Result := FOriginalHotKeyRecent4;
+    28: Result := FOriginalHotKeyRecent5;
+    29: Result := FOriginalHotKeyRecent6;
+    30: Result := FOriginalHotKeyRecent7;
+    31: Result := FOriginalHotKeyRecent8;
+    32: Result := FOriginalHotKeyRecent9;
     else
       Result := Default(THotKeyData);
   end;
@@ -1622,7 +1629,7 @@ begin
   // Row 1: Global header
   GridHotkeys.InsertRowWithValues(1, [rglobal]);
 
-  // Rows 2-9: Common hotkeys
+  // Rows 2-10: Common hotkeys
   GridHotkeys.InsertRowWithValues(2, [rapp, FHotKeyApp.ToText, rapp_hint, rapp_default]);
   GridHotkeys.InsertRowWithValues(3, [rtransswap, FHotKeyTransSwap.ToText, rtransswap_hint, rtransswap_default]);
   GridHotkeys.InsertRowWithValues(4, [rtransfromclipboard, FHotKeyTransFromClipboard.ToText, rtransfromclipboard_hint,
@@ -1635,42 +1642,43 @@ begin
   GridHotkeys.InsertRowWithValues(8, [rtranscontrol, FHotKeyTransControl.ToText, rtranscontrol_hint, rtranscontrol_default]);
   GridHotkeys.InsertRowWithValues(9, [rtranscontrolpopup, FHotKeyTransControlPopup.ToText, rtranscontrolpopup_hint,
     rtranscontrolpopup_default]);
+  GridHotkeys.InsertRowWithValues(10, [rtransocr, FHotKeyTransOCR.ToText, rtransocr_hint, rtransocr_default]);
 
-  // Row 10: Fast header
-  GridHotkeys.InsertRowWithValues(10, [rfast]);
+  // Row 11: Fast header
+  GridHotkeys.InsertRowWithValues(11, [rfast]);
 
-  // Rows 11-20: Fast settings hotkeys
-  GridHotkeys.InsertRowWithValues(11, [rfastallowhotkeys, FHotKeyFastAllowHotKeys.ToText, rfastallowhotkeys_hint,
+  // Rows 12-22: Fast settings hotkeys
+  GridHotkeys.InsertRowWithValues(12, [rfastallowhotkeys, FHotKeyFastAllowHotKeys.ToText, rfastallowhotkeys_hint,
     rfastallowhotkeys_default]);
-  GridHotkeys.InsertRowWithValues(12, [rfastenablemousemode, FHotKeyFastEnableMouseMode.ToText,
+  GridHotkeys.InsertRowWithValues(13, [rfastenablemousemode, FHotKeyFastEnableMouseMode.ToText,
     rfastenablemousemode_hint, rfastenablemousemode_default]);
-  GridHotkeys.InsertRowWithValues(13, [rfastmousemodectrl, FHotKeyFastMouseModeCtrl.ToText, rfastmousemodectrl_hint,
+  GridHotkeys.InsertRowWithValues(14, [rfastmousemodectrl, FHotKeyFastMouseModeCtrl.ToText, rfastmousemodectrl_hint,
     rfastmousemodectrl_default]);
-  GridHotkeys.InsertRowWithValues(14, [rfastautoswap, FHotKeyFastAutoSwap.ToText, rfastautoswap_hint, rfastautoswap_default]);
-  GridHotkeys.InsertRowWithValues(15, [rfastautoaddlangpairs, FHotKeyFastAutoAddLangPairs.ToText,
+  GridHotkeys.InsertRowWithValues(15, [rfastautoswap, FHotKeyFastAutoSwap.ToText, rfastautoswap_hint, rfastautoswap_default]);
+  GridHotkeys.InsertRowWithValues(16, [rfastautoaddlangpairs, FHotKeyFastAutoAddLangPairs.ToText,
     rfastautoaddlangpairs_hint, rfastautoaddlangpairs_default]);
-  GridHotkeys.InsertRowWithValues(16, [rfastrealtime, FHotKeyFastRealTime.ToText, rfastrealtime_hint, rfastrealtime_default]);
-  GridHotkeys.InsertRowWithValues(17, [rfastautocopy, FHotKeyFastAutoCopy.ToText, rfastautocopy_hint, rfastautocopy_default]);
-  GridHotkeys.InsertRowWithValues(18, [rfastverticalsplit, FHotKeyFastVerticalSplit.ToText, rfastverticalsplit_hint,
+  GridHotkeys.InsertRowWithValues(17, [rfastrealtime, FHotKeyFastRealTime.ToText, rfastrealtime_hint, rfastrealtime_default]);
+  GridHotkeys.InsertRowWithValues(18, [rfastautocopy, FHotKeyFastAutoCopy.ToText, rfastautocopy_hint, rfastautocopy_default]);
+  GridHotkeys.InsertRowWithValues(19, [rfastverticalsplit, FHotKeyFastVerticalSplit.ToText, rfastverticalsplit_hint,
     rfastverticalsplit_default]);
-  GridHotkeys.InsertRowWithValues(19, [rfastautohidepopup, FHotKeyFastAutoHidePopup.ToText, rfastautohidepopup,
+  GridHotkeys.InsertRowWithValues(20, [rfastautohidepopup, FHotKeyFastAutoHidePopup.ToText, rfastautohidepopup,
     rfastautohidepopup_default]);
-  GridHotkeys.InsertRowWithValues(20, [rfastautoheight, FHotKeyFastAutoHeight.ToText, rfastautoheight_hint, rfastautoheight_default]);
-  GridHotkeys.InsertRowWithValues(21, [rfastspellcheck, FHotKeyFastSpellCheck.ToText, rfastspellcheck_hint, rfastspellcheck_default]);
+  GridHotkeys.InsertRowWithValues(21, [rfastautoheight, FHotKeyFastAutoHeight.ToText, rfastautoheight_hint, rfastautoheight_default]);
+  GridHotkeys.InsertRowWithValues(22, [rfastspellcheck, FHotKeyFastSpellCheck.ToText, rfastspellcheck_hint, rfastspellcheck_default]);
 
-  // Row 21: Recent header
-  GridHotkeys.InsertRowWithValues(22, [rrecent]);
+  // Row 23: Recent header
+  GridHotkeys.InsertRowWithValues(23, [rrecent]);
 
-  // Rows 22-30: Recent hotkeys
-  GridHotkeys.InsertRowWithValues(23, [rrecentpair + ' 1', FHotKeyRecent1.ToText, rrecentpair_hint + ' 1', rrecentpair_default + '1']);
-  GridHotkeys.InsertRowWithValues(24, [rrecentpair + ' 2', FHotKeyRecent2.ToText, rrecentpair_hint + ' 2', rrecentpair_default + '2']);
-  GridHotkeys.InsertRowWithValues(25, [rrecentpair + ' 3', FHotKeyRecent3.ToText, rrecentpair_hint + ' 3', rrecentpair_default + '3']);
-  GridHotkeys.InsertRowWithValues(26, [rrecentpair + ' 4', FHotKeyRecent4.ToText, rrecentpair_hint + ' 4', rrecentpair_default + '4']);
-  GridHotkeys.InsertRowWithValues(27, [rrecentpair + ' 5', FHotKeyRecent5.ToText, rrecentpair_hint + ' 5', rrecentpair_default + '5']);
-  GridHotkeys.InsertRowWithValues(28, [rrecentpair + ' 6', FHotKeyRecent6.ToText, rrecentpair_hint + ' 6', rrecentpair_default + '6']);
-  GridHotkeys.InsertRowWithValues(29, [rrecentpair + ' 7', FHotKeyRecent7.ToText, rrecentpair_hint + ' 7', rrecentpair_default + '7']);
-  GridHotkeys.InsertRowWithValues(30, [rrecentpair + ' 8', FHotKeyRecent8.ToText, rrecentpair_hint + ' 8', rrecentpair_default + '8']);
-  GridHotkeys.InsertRowWithValues(31, [rrecentpair + ' 9', FHotKeyRecent9.ToText, rrecentpair_hint + ' 9', rrecentpair_default + '9']);
+  // Rows 24-32: Recent hotkeys
+  GridHotkeys.InsertRowWithValues(24, [rrecentpair + ' 1', FHotKeyRecent1.ToText, rrecentpair_hint + ' 1', rrecentpair_default + '1']);
+  GridHotkeys.InsertRowWithValues(25, [rrecentpair + ' 2', FHotKeyRecent2.ToText, rrecentpair_hint + ' 2', rrecentpair_default + '2']);
+  GridHotkeys.InsertRowWithValues(26, [rrecentpair + ' 3', FHotKeyRecent3.ToText, rrecentpair_hint + ' 3', rrecentpair_default + '3']);
+  GridHotkeys.InsertRowWithValues(27, [rrecentpair + ' 4', FHotKeyRecent4.ToText, rrecentpair_hint + ' 4', rrecentpair_default + '4']);
+  GridHotkeys.InsertRowWithValues(28, [rrecentpair + ' 5', FHotKeyRecent5.ToText, rrecentpair_hint + ' 5', rrecentpair_default + '5']);
+  GridHotkeys.InsertRowWithValues(29, [rrecentpair + ' 6', FHotKeyRecent6.ToText, rrecentpair_hint + ' 6', rrecentpair_default + '6']);
+  GridHotkeys.InsertRowWithValues(30, [rrecentpair + ' 7', FHotKeyRecent7.ToText, rrecentpair_hint + ' 7', rrecentpair_default + '7']);
+  GridHotkeys.InsertRowWithValues(31, [rrecentpair + ' 8', FHotKeyRecent8.ToText, rrecentpair_hint + ' 8', rrecentpair_default + '8']);
+  GridHotkeys.InsertRowWithValues(32, [rrecentpair + ' 9', FHotKeyRecent9.ToText, rrecentpair_hint + ' 9', rrecentpair_default + '9']);
 
   // Restore safely
   if SavedRow < GridHotkeys.RowCount then
@@ -1910,6 +1918,7 @@ begin
     formTrayslate.HotKeyTransFromControl := FHotKeyTransFromControl;
     formTrayslate.HotKeyTransControl := FHotKeyTransControl;
     formTrayslate.HotKeyTransControlPopup := FHotKeyTransControlPopup;
+    formTrayslate.HotKeyTransOCR := FHotKeyTransOCR;
 
     // HotKeys Fast Settings
     formTrayslate.HotKeyFastAllowHotKeys := FHotKeyFastAllowHotKeys;
@@ -1986,6 +1995,7 @@ begin
   FOriginalHotKeyTransFromControl := formTrayslate.HotKeyTransFromControl;
   FOriginalHotKeyTransControl := formTrayslate.HotKeyTransControl;
   FOriginalHotKeyTransControlPopup := formTrayslate.HotKeyTransControlPopup;
+  FOriginalHotKeyTransOCR := formTrayslate.HotKeyTransOCR;
 
   // HotKeys Fast Settings
   FOriginalHotKeyFastAllowHotKeys := formTrayslate.HotKeyFastAllowHotKeys;
@@ -2021,6 +2031,7 @@ begin
   FHotKeyTransFromControl := formTrayslate.HotKeyTransFromControl;
   FHotKeyTransControl := formTrayslate.HotKeyTransControl;
   FHotKeyTransControlPopup := formTrayslate.HotKeyTransControlPopup;
+  FHotKeyTransOCR := formTrayslate.HotKeyTransOCR;
 
   // HotKeys Fast Settings
   FHotKeyFastAllowHotKeys := formTrayslate.HotKeyFastAllowHotKeys;

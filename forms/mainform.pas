@@ -50,6 +50,7 @@ uses
   network,
   Consts,
   SpellChecker,
+  WinOCRApi,
   osutils,
   stringhelper,
   hotkeyhelper,
@@ -72,6 +73,7 @@ type
     aCopySource: TAction;
     aCopyTarget: TAction;
     aCopy: TAction;
+    aTranslateOCR: TAction;
     aDefaultZoom: TAction;
     aFastSpellCheck: TAction;
     aTargetBidiRightToLeft: TAction;
@@ -118,6 +120,7 @@ type
     MenuItem1: TMenuItem;
     MenuFastMouseModeCtrl: TMenuItem;
     MenuFastSpellCheck: TMenuItem;
+    MenuItem4: TMenuItem;
     MenuSourceDefaultZoom: TMenuItem;
     MenuTargetDefaultZoom: TMenuItem;
     MenuSourceBidiMode: TMenuItem;
@@ -264,6 +267,7 @@ type
     MenuUkrainian: TMenuItem;
     MenuBelarusian: TMenuItem;
     MenuHindi: TMenuItem;
+    procedure aTranslateOCRExecute(Sender: TObject);
     procedure ComboDrawItem(Control: TWinControl; Index: integer; ARect: TRect; State: TOwnerDrawState);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -400,6 +404,7 @@ type
     FProxy: TProxy;
     FTimeout: TTimeout;
     FCancelled: boolean;
+    FOCRActive: boolean;
     FTopMost: boolean;
     FLeftButton: boolean;
     FCtrlArmed: boolean;
@@ -507,6 +512,7 @@ type
     FHotKeyTransFromControl: THotKeyData;
     FHotKeyTransControl: THotKeyData;
     FHotKeyTransControlPopup: THotKeyData;
+    FHotKeyTransOCR: THotKeyData;
     // HotKeys Fastsettings
     FHotKeyFastAllowHotKeys: THotKeyData;
     FHotKeyFastEnableMouseMode: THotKeyData;
@@ -664,6 +670,7 @@ type
     procedure TranslateFromClipboard;
     procedure TranslateClipboard;
     procedure TranslateClipboardPopup(NearMouse: boolean = False);
+    procedure TranslateFromScreenArea;
     procedure TranslateFromControl(Data: PtrInt);
     procedure TranslateControl(Data: PtrInt);
     procedure TranslateFromControlPopup(Data: PtrInt);
@@ -765,6 +772,7 @@ type
     property HotKeyTransFromControl: THotKeyData read FHotKeyTransFromControl write FHotKeyTransFromControl;
     property HotKeyTransControl: THotKeyData read FHotKeyTransControl write FHotKeyTransControl;
     property HotKeyTransControlPopup: THotKeyData read FHotKeyTransControlPopup write FHotKeyTransControlPopup;
+    property HotKeyTransOCR: THotKeyData read FHotKeyTransOCR write FHotKeyTransOCR;
     // HotKeys Fast Settings
     property HotKeyFastAllowHotKeys: THotKeyData read FHotKeyFastAllowHotKeys write FHotKeyFastAllowHotKeys;
     property HotKeyFastEnableMouseMode: THotKeyData read FHotKeyFastEnableMouseMode write FHotKeyFastEnableMouseMode;
@@ -840,6 +848,7 @@ begin
   FCustomPoFile := string.Empty;
   FSplitRatio := 0.5;
   FCancelled := False;
+  FOCRActive := False;
   FPopupOpen := False;
   FUnapplyCtrl := False;
   FUnapplyShift := False;
@@ -1364,6 +1373,13 @@ begin
         ReleaseHotKeyModifiers(FHotKeyTransControlPopup);
       end;
 
+      HOTKEY_TRANS_OCR:
+      try
+         TranslateFromScreenArea;
+      finally
+        ReleaseHotKeyModifiers(FHotKeyTransOCR);
+      end;
+
       // HotKeys Fast Settings
       HOTKEY_FAST_ALLOW_HOTKEYS:
       try
@@ -1728,6 +1744,9 @@ begin
   if FHotKeyTransControlPopup.Key <> 0 then
     RegisterHotKey(Handle, HOTKEY_TRANS_CONTROL_POPUP, FHotKeyTransControlPopup.Modifiers, FHotKeyTransControlPopup.Key);
 
+  if FHotKeyTransOCR.Key <> 0 then
+    RegisterHotKey(Handle, HOTKEY_TRANS_OCR, FHotKeyTransOCR.Modifiers, FHotKeyTransOCR.Key);
+
   // HotKeys Fast Settings
   if FHotKeyFastAllowHotKeys.Key <> 0 then
     RegisterHotKey(Handle, HOTKEY_FAST_ALLOW_HOTKEYS, FHotKeyFastAllowHotKeys.Modifiers, FHotKeyFastAllowHotKeys.Key);
@@ -1804,6 +1823,7 @@ begin
   UnregisterHotKey(Handle, HOTKEY_TRANS_FROM_CONTROL);
   UnregisterHotKey(Handle, HOTKEY_TRANS_CONTROL);
   UnregisterHotKey(Handle, HOTKEY_TRANS_CONTROL_POPUP);
+  UnregisterHotKey(Handle, HOTKEY_TRANS_OCR);
 
   // HotKeys Fast Settings
   UnregisterHotKey(Handle, HOTKEY_FAST_ALLOW_HOTKEYS);
@@ -1954,6 +1974,11 @@ end;
 procedure TformTrayslate.aPopupTranslateExecute(Sender: TObject);
 begin
   TranslateClipboardPopup;
+end;
+
+procedure TformTrayslate.aTranslateOCRExecute(Sender: TObject);
+begin
+  TranslateFromScreenArea;
 end;
 
 procedure TformTrayslate.aSwapExecute(Sender: TObject);
@@ -3838,6 +3863,10 @@ begin
   // Ctrl+Shift+X
   FHotKeyTransControlPopup.Modifiers := MOD_CONTROL or MOD_SHIFT;
   FHotKeyTransControlPopup.Key := Ord('X');
+
+  // Ctrl+Shift+O
+  FHotKeyTransOCR.Modifiers := MOD_CONTROL or MOD_SHIFT;
+  FHotKeyTransOCR.Key := Ord('O');
 
   // Alt+F1
   FHotKeyFastAllowHotKeys.Modifiers := MOD_SHIFT;
@@ -5746,6 +5775,116 @@ begin
     {$ELSE}
     Screen.Cursor := crDefault;
     {$ENDIF}
+  end;
+end;
+
+procedure TformTrayslate.TranslateFromScreenArea;
+var
+  Ocr: TWinOcrDirect = nil;
+  RecognizedText: string = '';
+  ErrorMessage: string = '';
+  ActionIndex: integer = -1;
+  WasVisible: boolean = False;
+  Captions: TStringArray = nil;
+  SupportedLangs: TStringArray = nil;
+  SupportedList: string = '';
+  LangTag: string = '';
+  I: integer = 0;
+begin
+  // Prevent re-entry when the hotkey is pressed repeatedly
+  if FOCRActive then Exit;
+  FOCRActive := True;
+  try
+    FCancelled := False;
+    RecognizedText := '';
+    WasVisible := False;
+
+    // Normalize to BCP-47, Lazarus locale names use underscores
+    LangTag := StringReplace(Trim(FLangSource), '_', '-', [rfReplaceAll]);
+
+    // OCR needs a concrete language, it cannot auto-detect
+    if (LangTag = '') or SameText(LangTag, 'auto') then
+    begin
+      ShowMessage(rocrneedlang);
+      Exit;
+    end;
+
+    Ocr := TWinOcrDirect.Create;
+    try
+      if not Ocr.IsLanguageSupported(LangTag) then
+      begin
+        // Build the list of installed packs to guide the user
+        SupportedLangs := Ocr.GetSupportedLanguages;
+        for I := 0 to High(SupportedLangs) do
+        begin
+          if I > 0 then
+            SupportedList := SupportedList + ', ';
+          SupportedList := SupportedList + SupportedLangs[I];
+        end;
+
+        // Empty list means WinRT or OCR packs are missing entirely
+        if SupportedList = '' then
+          ShowMessage(rocrnopacks)
+        else
+          ShowMessage(Format(rocrlanguagenotsupported, [Trim(FLangSource), SupportedList]));
+        Exit;
+      end;
+
+      // Hide the form so it does not get into the captured screenshot
+      WasVisible := Visible;
+      if WasVisible then
+        Hide;
+      // Always wait: a popup menu may still be fading even when the form was hidden
+      Application.ProcessMessages;
+      Sleep(300);
+
+      // Items shown in the popup right after the user draws the region
+      Captions := [rcancel, '-', rcopytoclipboard, rtranslateinmainwindow, rtranslateinpopup];
+
+      if Ocr.TryRecognizeScreenRegionWithAction(LangTag, Captions, RecognizedText, ActionIndex, ErrorMessage) then
+      begin
+        // Skip cancel and divider, warn once when OCR found nothing
+        if (ActionIndex >= 2) and (RecognizedText = '') then
+        begin
+          ShowMessage(rnorecognized);
+        end
+        else
+        begin
+          case ActionIndex of
+            2:
+              // Copy only, memo stays intact
+              Clipboard.AsText := RecognizedText;
+
+            3:
+              // Mirror the TranslateFromClipboard flow with the recognized text
+            begin
+              FCancelled := False;
+              if not Showing then Show;
+              BringToFront;
+              FTopMost := True;
+              TOS.SleepLoop(0, 1);
+              MemoSource.SetTextSafe(RecognizedText);
+              TranslateMemo;
+            end;
+
+            4:
+              // Reuse the shared popup translation flow
+              TranslatePopup(RecognizedText);
+          end;
+        end;
+      end
+      else if ErrorMessage <> 'Screen region selection canceled' then
+        ShowMessage(ErrorMessage);
+    finally
+      Ocr.Free;
+      if WasVisible and not Visible then
+      begin
+        Show;
+        Application.ProcessMessages;
+      end;
+    end;
+  finally
+    FOCRActive := False;
   end;
 end;
 

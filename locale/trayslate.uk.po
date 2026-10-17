@@ -21,6 +21,15 @@ msgctxt "consts.rautodetect"
 msgid "Auto Detect"
 msgstr "Автовизначення"
 
+#: consts.rcancel
+msgctxt "consts.rcancel"
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: consts.rcopytoclipboard
+msgid "Copy To Clipboard"
+msgstr "Копіювати в буфер обміну"
+
 #: consts.renter
 msgctxt "consts.renter"
 msgid "Enter"
@@ -40,6 +49,27 @@ msgstr "Зафіксувати висоту"
 msgctxt "consts.rnoconfig"
 msgid "Configuration file not found! Create it in the configuration editor."
 msgstr "Файл конфігурації не знайдено! Створіть його в редакторі конфігурації."
+
+#: consts.rnorecognized
+msgid "No text was recognized in the selected area. Try selecting a different region."
+msgstr "Не вдалося розпізнати текст у вибраній області. Спробуйте вибрати іншу область."
+
+#: consts.rocrlanguagenotsupported
+#, object-pascal-format
+msgid ""
+"No OCR engine is installed for language \"%s\".\n"
+"Supported languages: %s"
+msgstr ""
+"Для мови \"%s\" не встановлено рушій OCR.\n"
+"Підтримувані мови: %s"
+
+#: consts.rocrneedlang
+msgid "Screen OCR requires a specific source language. Please choose one in settings instead of automatic detection."
+msgstr "Для розпізнавання тексту на екрані (OCR) потрібно вказати вихідну мову. Виберіть її в налаштуваннях замість автоматичного визначення."
+
+#: consts.rocrnopacks
+msgid "No OCR language packs are installed on this system."
+msgstr "У цій системі не встановлено мовних пакетів OCR."
 
 #: consts.ropenpofiletr
 msgctxt "consts.ropenpofiletr"
@@ -67,6 +97,15 @@ msgstr " для видалення пари"
 msgctxt "consts.rtranslate"
 msgid "Translate (Ctrl ¦ Shift + Enter, Triple Enter)"
 msgstr "Перекласти (Ctrl ¦ Shift + Enter, Triple Enter)"
+
+#: consts.rtranslateinmainwindow
+msgid "Translate In Main Window"
+msgstr "Перекласти в головному вікні"
+
+#: consts.rtranslateinpopup
+msgctxt "consts.rtranslateinpopup"
+msgid "Translate In Popup"
+msgstr "Перекласти у спливаючому вікні"
 
 #: consts.rtranslatestop
 msgid "Stop Translation (Esc)"
@@ -726,6 +765,18 @@ msgctxt "formsettings.rtransfromcontrol_hint"
 msgid "Translates the selected text from the active application"
 msgstr "Перекладає виділений текст з активного застосунку"
 
+#: formsettings.rtransocr
+msgid "Translate From Screen Area (OCR)"
+msgstr "Перекласти з області екрана (OCR)"
+
+#: formsettings.rtransocr_default
+msgid "Default Ctrl+Shift+O"
+msgstr "За замовчуванням Ctrl+Shift+O"
+
+#: formsettings.rtransocr_hint
+msgid "Recognize text from a selected screen area and translate it"
+msgstr "Розпізнати та перекласти текст із вибраної області екрана"
+
 #: formsettings.rtransswap
 msgctxt "formsettings.rtransswap"
 msgid "Swap Languages (Tray Icon Middle-Click)"
@@ -1326,6 +1377,7 @@ msgid "Apply"
 msgstr "Застосувати"
 
 #: tformsettingstrayslate.btncancel.caption
+msgctxt "tformsettingstrayslate.btncancel.caption"
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -2135,8 +2187,9 @@ msgid "Paste"
 msgstr "Вставити"
 
 #: tformtrayslate.apopuptranslate.caption
-msgid "Popup Translate"
-msgstr "Спливаючий переклад"
+msgctxt "tformtrayslate.apopuptranslate.caption"
+msgid "Translate In Popup"
+msgstr "Перекласти у спливаючому вікні"
 
 #: tformtrayslate.aselectall.caption
 msgctxt "tformtrayslate.aselectall.caption"
@@ -2169,6 +2222,10 @@ msgstr "Перекласти (Ctrl ¦ Shift ¦ Enter + Enter)"
 #: tformtrayslate.atranslateclipboard.caption
 msgid "Translate Clipboard"
 msgstr "Перекласти буфер обміну"
+
+#: tformtrayslate.atranslateocr.caption
+msgid "Translate Screen Area (OCR)"
+msgstr "Перекласти область екрана (OCR)"
 
 #: tformtrayslate.aundo.caption
 msgctxt "tformtrayslate.aundo.caption"

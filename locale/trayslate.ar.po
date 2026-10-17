@@ -21,6 +21,15 @@ msgctxt "consts.rautodetect"
 msgid "Auto Detect"
 msgstr "اكتشاف تلقائي"
 
+#: consts.rcancel
+msgctxt "consts.rcancel"
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: consts.rcopytoclipboard
+msgid "Copy To Clipboard"
+msgstr "نسخ إلى الحافظة"
+
 #: consts.renter
 msgctxt "consts.renter"
 msgid "Enter"
@@ -40,6 +49,27 @@ msgstr "قفل الارتفاع"
 msgctxt "consts.rnoconfig"
 msgid "Configuration file not found! Create it in the configuration editor."
 msgstr "ملف التكوين غير موجود! قم بإنشائه في محرر التكوين."
+
+#: consts.rnorecognized
+msgid "No text was recognized in the selected area. Try selecting a different region."
+msgstr "لم يتم التعرّف على أي نص في المنطقة المحددة. حاول تحديد منطقة أخرى."
+
+#: consts.rocrlanguagenotsupported
+#, object-pascal-format
+msgid ""
+"No OCR engine is installed for language \"%s\".\n"
+"Supported languages: %s"
+msgstr ""
+"لا يوجد محرك OCR مثبت للغة \"%s\".\n"
+"اللغات المدعومة: %s"
+
+#: consts.rocrneedlang
+msgid "Screen OCR requires a specific source language. Please choose one in settings instead of automatic detection."
+msgstr "يتطلب OCR للشاشة تحديد لغة مصدر معينة. يُرجى اختيار لغة من الإعدادات بدلاً من الكشف التلقائي."
+
+#: consts.rocrnopacks
+msgid "No OCR language packs are installed on this system."
+msgstr "لا توجد حزم لغات OCR مثبتة على هذا النظام."
 
 #: consts.ropenpofiletr
 msgctxt "consts.ropenpofiletr"
@@ -67,6 +97,15 @@ msgstr " لإزالة الزوج"
 msgctxt "consts.rtranslate"
 msgid "Translate (Ctrl ¦ Shift + Enter, Triple Enter)"
 msgstr "ترجمة (Ctrl ¦ Shift + Enter, Triple Enter)"
+
+#: consts.rtranslateinmainwindow
+msgid "Translate In Main Window"
+msgstr "الترجمة في النافذة الرئيسية"
+
+#: consts.rtranslateinpopup
+msgctxt "consts.rtranslateinpopup"
+msgid "Translate In Popup"
+msgstr "الترجمة في نافذة منبثقة"
 
 #: consts.rtranslatestop
 msgid "Stop Translation (Esc)"
@@ -726,6 +765,18 @@ msgctxt "formsettings.rtransfromcontrol_hint"
 msgid "Translates the selected text from the active application"
 msgstr "يترجم النص المحدد من التطبيق النشط"
 
+#: formsettings.rtransocr
+msgid "Translate From Screen Area (OCR)"
+msgstr "الترجمة من منطقة الشاشة (OCR)"
+
+#: formsettings.rtransocr_default
+msgid "Default Ctrl+Shift+O"
+msgstr "الافتراضي Ctrl+Shift+O"
+
+#: formsettings.rtransocr_hint
+msgid "Recognize text from a selected screen area and translate it"
+msgstr "التعرّف على النص من منطقة محددة من الشاشة وترجمته"
+
 #: formsettings.rtransswap
 msgctxt "formsettings.rtransswap"
 msgid "Swap Languages (Tray Icon Middle-Click)"
@@ -1326,6 +1377,7 @@ msgid "Apply"
 msgstr "تطبيق"
 
 #: tformsettingstrayslate.btncancel.caption
+msgctxt "tformsettingstrayslate.btncancel.caption"
 msgid "Cancel"
 msgstr "إلغاء"
 
@@ -2135,8 +2187,9 @@ msgid "Paste"
 msgstr "لصق"
 
 #: tformtrayslate.apopuptranslate.caption
-msgid "Popup Translate"
-msgstr "ترجمة منبثقة"
+msgctxt "tformtrayslate.apopuptranslate.caption"
+msgid "Translate In Popup"
+msgstr "الترجمة في نافذة منبثقة"
 
 #: tformtrayslate.aselectall.caption
 msgctxt "tformtrayslate.aselectall.caption"
@@ -2169,6 +2222,10 @@ msgstr "ترجمة (Ctrl ¦ Shift ¦ Enter + Enter)"
 #: tformtrayslate.atranslateclipboard.caption
 msgid "Translate Clipboard"
 msgstr "ترجمة الحافظة"
+
+#: tformtrayslate.atranslateocr.caption
+msgid "Translate Screen Area (OCR)"
+msgstr "ترجمة منطقة الشاشة (OCR)"
 
 #: tformtrayslate.aundo.caption
 msgctxt "tformtrayslate.aundo.caption"

@@ -21,6 +21,15 @@ msgctxt "consts.rautodetect"
 msgid "Auto Detect"
 msgstr "Auto Detect"
 
+#: consts.rcancel
+msgctxt "consts.rcancel"
+msgid "Cancel"
+msgstr "Cancel"
+
+#: consts.rcopytoclipboard
+msgid "Copy To Clipboard"
+msgstr "Copy To Clipboard"
+
 #: consts.renter
 msgctxt "consts.renter"
 msgid "Enter"
@@ -40,6 +49,27 @@ msgstr "Lock Height"
 msgctxt "consts.rnoconfig"
 msgid "Configuration file not found! Create it in the configuration editor."
 msgstr "Configuration file not found! Create it in the configuration editor."
+
+#: consts.rnorecognized
+msgid "No text was recognized in the selected area. Try selecting a different region."
+msgstr "No text was recognized in the selected area. Try selecting a different region."
+
+#: consts.rocrlanguagenotsupported
+#, object-pascal-format
+msgid ""
+"No OCR engine is installed for language \"%s\".\n"
+"Supported languages: %s"
+msgstr ""
+"No OCR engine is installed for language \"%s\".\n"
+"Supported languages: %s"
+
+#: consts.rocrneedlang
+msgid "Screen OCR requires a specific source language. Please choose one in settings instead of automatic detection."
+msgstr "Screen OCR requires a specific source language. Please choose one in settings instead of automatic detection."
+
+#: consts.rocrnopacks
+msgid "No OCR language packs are installed on this system."
+msgstr "No OCR language packs are installed on this system."
 
 #: consts.ropenpofiletr
 msgctxt "consts.ropenpofiletr"
@@ -67,6 +97,15 @@ msgstr " to remove pair"
 msgctxt "consts.rtranslate"
 msgid "Translate (Ctrl ¦ Shift + Enter, Triple Enter)"
 msgstr "Translate (Ctrl ¦ Shift + Enter, Triple Enter)"
+
+#: consts.rtranslateinmainwindow
+msgid "Translate In Main Window"
+msgstr "Translate In Main Window"
+
+#: consts.rtranslateinpopup
+msgctxt "consts.rtranslateinpopup"
+msgid "Translate In Popup"
+msgstr "Translate In Popup"
 
 #: consts.rtranslatestop
 msgid "Stop Translation (Esc)"
@@ -730,6 +769,18 @@ msgctxt "formsettings.rtransfromcontrol_hint"
 msgid "Translates the selected text from the active application"
 msgstr "Translates the selected text from the active application"
 
+#: formsettings.rtransocr
+msgid "Translate From Screen Area (OCR)"
+msgstr "Translate From Screen Area (OCR)"
+
+#: formsettings.rtransocr_default
+msgid "Default Ctrl+Shift+O"
+msgstr "Default Ctrl+Shift+O"
+
+#: formsettings.rtransocr_hint
+msgid "Recognize text from a selected screen area and translate it"
+msgstr "Recognize text from a selected screen area and translate it"
+
 #: formsettings.rtransswap
 msgctxt "formsettings.rtransswap"
 msgid "Swap Languages (Tray Icon Middle-Click)"
@@ -1330,6 +1381,7 @@ msgid "Apply"
 msgstr "Apply"
 
 #: tformsettingstrayslate.btncancel.caption
+msgctxt "tformsettingstrayslate.btncancel.caption"
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -2140,8 +2192,9 @@ msgid "Paste"
 msgstr "Paste"
 
 #: tformtrayslate.apopuptranslate.caption
-msgid "Popup Translate"
-msgstr "Popup Translate"
+msgctxt "tformtrayslate.apopuptranslate.caption"
+msgid "Translate In Popup"
+msgstr "Translate In Popup"
 
 #: tformtrayslate.aselectall.caption
 msgctxt "tformtrayslate.aselectall.caption"
@@ -2174,6 +2227,10 @@ msgstr "Translate (Ctrl ¦ Shift ¦ Enter + Enter)"
 #: tformtrayslate.atranslateclipboard.caption
 msgid "Translate Clipboard"
 msgstr "Translate Clipboard"
+
+#: tformtrayslate.atranslateocr.caption
+msgid "Translate Screen Area (OCR)"
+msgstr "Translate Screen Area (OCR)"
 
 #: tformtrayslate.aundo.caption
 msgctxt "tformtrayslate.aundo.caption"

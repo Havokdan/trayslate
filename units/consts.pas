@@ -44,6 +44,7 @@ const
   HOTKEY_TRANS_FROM_CONTROL = 6;
   HOTKEY_TRANS_CONTROL = 7;
   HOTKEY_TRANS_CONTROL_POPUP = 8;
+  HOTKEY_TRANS_OCR = 9;
 
   HOTKEY_RECENT1 = 11;
   HOTKEY_RECENT2 = 12;
@@ -104,6 +105,14 @@ resourcestring
   renter = 'Enter';
   renterparameter = 'Enter the required parameter';
   rautodetect = 'Auto Detect';
+  rcancel = 'Cancel';
+  rcopytoclipboard = 'Copy To Clipboard';
+  rtranslateinmainwindow = 'Translate In Main Window';
+  rtranslateinpopup = 'Translate In Popup';
+  rnorecognized = 'No text was recognized in the selected area. Try selecting a different region.';
+  rocrneedlang = 'Screen OCR requires a specific source language. Please choose one in settings instead of automatic detection.';
+  rocrnopacks = 'No OCR language packs are installed on this system.';
+  rocrlanguagenotsupported = 'No OCR engine is installed for language "%s".' + LineEnding + 'Supported languages: %s';
 
   { Form Popup }
 

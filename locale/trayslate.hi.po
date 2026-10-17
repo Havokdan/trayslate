@@ -21,6 +21,15 @@ msgctxt "consts.rautodetect"
 msgid "Auto Detect"
 msgstr "स्वतः पहचान"
 
+#: consts.rcancel
+msgctxt "consts.rcancel"
+msgid "Cancel"
+msgstr "रद्द करें"
+
+#: consts.rcopytoclipboard
+msgid "Copy To Clipboard"
+msgstr "क्लिपबोर्ड पर कॉपी करें"
+
 #: consts.renter
 msgctxt "consts.renter"
 msgid "Enter"
@@ -40,6 +49,27 @@ msgstr "ऊँचाई लॉक करें"
 msgctxt "consts.rnoconfig"
 msgid "Configuration file not found! Create it in the configuration editor."
 msgstr "कॉन्फ़िगरेशन फ़ाइल नहीं मिली! इसे कॉन्फ़िगरेशन संपादक में बनाएँ।"
+
+#: consts.rnorecognized
+msgid "No text was recognized in the selected area. Try selecting a different region."
+msgstr "चयनित क्षेत्र में कोई पाठ नहीं पहचाना गया। कोई दूसरा क्षेत्र चुनकर देखें।"
+
+#: consts.rocrlanguagenotsupported
+#, object-pascal-format
+msgid ""
+"No OCR engine is installed for language \"%s\".\n"
+"Supported languages: %s"
+msgstr ""
+"भाषा \"%s\" के लिए कोई OCR इंजन इंस्टॉल नहीं है।\n"
+"समर्थित भाषाएँ: %s"
+
+#: consts.rocrneedlang
+msgid "Screen OCR requires a specific source language. Please choose one in settings instead of automatic detection."
+msgstr "स्क्रीन OCR के लिए एक विशिष्ट स्रोत भाषा आवश्यक है। कृपया स्वचालित पहचान के बजाय सेटिंग्स में भाषा चुनें।"
+
+#: consts.rocrnopacks
+msgid "No OCR language packs are installed on this system."
+msgstr "इस सिस्टम पर कोई OCR भाषा पैक इंस्टॉल नहीं है।"
 
 #: consts.ropenpofiletr
 msgctxt "consts.ropenpofiletr"
@@ -67,6 +97,15 @@ msgstr " युग्म हटाने के लिए"
 msgctxt "consts.rtranslate"
 msgid "Translate (Ctrl ¦ Shift + Enter, Triple Enter)"
 msgstr "अनुवाद करें (Ctrl ¦ Shift + Enter, Triple Enter)"
+
+#: consts.rtranslateinmainwindow
+msgid "Translate In Main Window"
+msgstr "मुख्य विंडो में अनुवाद करें"
+
+#: consts.rtranslateinpopup
+msgctxt "consts.rtranslateinpopup"
+msgid "Translate In Popup"
+msgstr "पॉपअप में अनुवाद करें"
 
 #: consts.rtranslatestop
 msgid "Stop Translation (Esc)"
@@ -726,6 +765,18 @@ msgctxt "formsettings.rtransfromcontrol_hint"
 msgid "Translates the selected text from the active application"
 msgstr "सक्रिय एप्लिकेशन से चयनित पाठ का अनुवाद करता है"
 
+#: formsettings.rtransocr
+msgid "Translate From Screen Area (OCR)"
+msgstr "स्क्रीन के क्षेत्र से अनुवाद करें (OCR)"
+
+#: formsettings.rtransocr_default
+msgid "Default Ctrl+Shift+O"
+msgstr "डिफ़ॉल्ट Ctrl+Shift+O"
+
+#: formsettings.rtransocr_hint
+msgid "Recognize text from a selected screen area and translate it"
+msgstr "स्क्रीन के चुने हुए क्षेत्र से पाठ पहचानें और उसका अनुवाद करें"
+
 #: formsettings.rtransswap
 msgctxt "formsettings.rtransswap"
 msgid "Swap Languages (Tray Icon Middle-Click)"
@@ -1326,6 +1377,7 @@ msgid "Apply"
 msgstr "लागू करें"
 
 #: tformsettingstrayslate.btncancel.caption
+msgctxt "tformsettingstrayslate.btncancel.caption"
 msgid "Cancel"
 msgstr "रद्द करें"
 
@@ -2135,8 +2187,9 @@ msgid "Paste"
 msgstr "पेस्ट करें"
 
 #: tformtrayslate.apopuptranslate.caption
-msgid "Popup Translate"
-msgstr "पॉपअप अनुवाद"
+msgctxt "tformtrayslate.apopuptranslate.caption"
+msgid "Translate In Popup"
+msgstr "पॉपअप में अनुवाद करें"
 
 #: tformtrayslate.aselectall.caption
 msgctxt "tformtrayslate.aselectall.caption"
@@ -2169,6 +2222,10 @@ msgstr "अनुवाद करें (Ctrl ¦ Shift ¦ Enter + Enter)"
 #: tformtrayslate.atranslateclipboard.caption
 msgid "Translate Clipboard"
 msgstr "क्लिपबोर्ड अनुवाद करें"
+
+#: tformtrayslate.atranslateocr.caption
+msgid "Translate Screen Area (OCR)"
+msgstr "स्क्रीन क्षेत्र का अनुवाद करें (OCR)"
 
 #: tformtrayslate.aundo.caption
 msgctxt "tformtrayslate.aundo.caption"

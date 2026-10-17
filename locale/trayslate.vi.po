@@ -23,6 +23,15 @@ msgctxt "consts.rautodetect"
 msgid "Auto Detect"
 msgstr "Tự động phát hiện"
 
+#: consts.rcancel
+msgctxt "consts.rcancel"
+msgid "Cancel"
+msgstr "Hủy"
+
+#: consts.rcopytoclipboard
+msgid "Copy To Clipboard"
+msgstr "Sao chép vào bộ nhớ tạm"
+
 #: consts.renter
 msgctxt "consts.renter"
 msgid "Enter"
@@ -42,6 +51,27 @@ msgstr "Khóa chiều cao"
 msgctxt "consts.rnoconfig"
 msgid "Configuration file not found! Create it in the configuration editor."
 msgstr "Không tìm thấy tập tin cấu hình! Tạo nó trong trình chỉnh sửa cấu hình."
+
+#: consts.rnorecognized
+msgid "No text was recognized in the selected area. Try selecting a different region."
+msgstr "Không nhận dạng được văn bản trong vùng đã chọn. Hãy thử chọn một vùng khác."
+
+#: consts.rocrlanguagenotsupported
+#, object-pascal-format
+msgid ""
+"No OCR engine is installed for language \"%s\".\n"
+"Supported languages: %s"
+msgstr ""
+"Chưa cài đặt công cụ OCR cho ngôn ngữ \"%s\".\n"
+"Các ngôn ngữ được hỗ trợ: %s"
+
+#: consts.rocrneedlang
+msgid "Screen OCR requires a specific source language. Please choose one in settings instead of automatic detection."
+msgstr "OCR màn hình yêu cầu một ngôn ngữ nguồn cụ thể. Vui lòng chọn ngôn ngữ trong phần cài đặt thay vì sử dụng tính năng tự động nhận diện."
+
+#: consts.rocrnopacks
+msgid "No OCR language packs are installed on this system."
+msgstr "Hệ thống này chưa cài đặt gói ngôn ngữ OCR nào."
 
 #: consts.ropenpofiletr
 msgctxt "consts.ropenpofiletr"
@@ -69,6 +99,15 @@ msgstr " để loại bỏ cặp"
 msgctxt "consts.rtranslate"
 msgid "Translate (Ctrl ¦ Shift + Enter, Triple Enter)"
 msgstr "Dịch (Ctrl ¦ Shift + Enter, Enter ba lần)"
+
+#: consts.rtranslateinmainwindow
+msgid "Translate In Main Window"
+msgstr "Dịch trong cửa sổ chính"
+
+#: consts.rtranslateinpopup
+msgctxt "consts.rtranslateinpopup"
+msgid "Translate In Popup"
+msgstr "Dịch trong cửa sổ bật lên"
 
 #: consts.rtranslatestop
 msgid "Stop Translation (Esc)"
@@ -731,6 +770,18 @@ msgctxt "formsettings.rtransfromcontrol_hint"
 msgid "Translates the selected text from the active application"
 msgstr "Dịch văn bản đã chọn từ ứng dụng đang hoạt động"
 
+#: formsettings.rtransocr
+msgid "Translate From Screen Area (OCR)"
+msgstr "Dịch từ vùng màn hình (OCR)"
+
+#: formsettings.rtransocr_default
+msgid "Default Ctrl+Shift+O"
+msgstr "Mặc định Ctrl+Shift+O"
+
+#: formsettings.rtransocr_hint
+msgid "Recognize text from a selected screen area and translate it"
+msgstr "Nhận dạng và dịch văn bản từ vùng màn hình đã chọn"
+
 #: formsettings.rtransswap
 msgctxt "formsettings.rtransswap"
 msgid "Swap Languages (Tray Icon Middle-Click)"
@@ -1331,6 +1382,7 @@ msgid "Apply"
 msgstr "Áp dụng"
 
 #: tformsettingstrayslate.btncancel.caption
+msgctxt "tformsettingstrayslate.btncancel.caption"
 msgid "Cancel"
 msgstr "Hủy bỏ"
 
@@ -2140,8 +2192,9 @@ msgid "Paste"
 msgstr "Dán"
 
 #: tformtrayslate.apopuptranslate.caption
-msgid "Popup Translate"
-msgstr "Dịch cửa sổ bật lên"
+msgctxt "tformtrayslate.apopuptranslate.caption"
+msgid "Translate In Popup"
+msgstr "Dịch trong cửa sổ bật lên"
 
 #: tformtrayslate.aselectall.caption
 msgctxt "tformtrayslate.aselectall.caption"
@@ -2174,6 +2227,10 @@ msgstr "Dịch (Ctrl ¦ Shift ¦ Enter + Enter)"
 #: tformtrayslate.atranslateclipboard.caption
 msgid "Translate Clipboard"
 msgstr "Dịch Clipboard"
+
+#: tformtrayslate.atranslateocr.caption
+msgid "Translate Screen Area (OCR)"
+msgstr "Dịch vùng màn hình (OCR)"
 
 #: tformtrayslate.aundo.caption
 msgctxt "tformtrayslate.aundo.caption"

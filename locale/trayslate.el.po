@@ -21,6 +21,15 @@ msgctxt "consts.rautodetect"
 msgid "Auto Detect"
 msgstr "Αυτόματη ανίχνευση"
 
+#: consts.rcancel
+msgctxt "consts.rcancel"
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: consts.rcopytoclipboard
+msgid "Copy To Clipboard"
+msgstr "Αντιγραφή στο πρόχειρο"
+
 #: consts.renter
 msgctxt "consts.renter"
 msgid "Enter"
@@ -40,6 +49,27 @@ msgstr "Κλείδωμα ύψους"
 msgctxt "consts.rnoconfig"
 msgid "Configuration file not found! Create it in the configuration editor."
 msgstr "Το αρχείο ρυθμίσεων δεν βρέθηκε! Δημιουργήστε το στον επεξεργαστή ρυθμίσεων."
+
+#: consts.rnorecognized
+msgid "No text was recognized in the selected area. Try selecting a different region."
+msgstr "Δεν αναγνωρίστηκε κείμενο στην επιλεγμένη περιοχή. Δοκιμάστε να επιλέξετε μια διαφορετική περιοχή."
+
+#: consts.rocrlanguagenotsupported
+#, object-pascal-format
+msgid ""
+"No OCR engine is installed for language \"%s\".\n"
+"Supported languages: %s"
+msgstr ""
+"Δεν έχει εγκατασταθεί μηχανή OCR για τη γλώσσα \"%s\".\n"
+"Υποστηριζόμενες γλώσσες: %s"
+
+#: consts.rocrneedlang
+msgid "Screen OCR requires a specific source language. Please choose one in settings instead of automatic detection."
+msgstr "Η αναγνώριση OCR στην οθόνη απαιτεί συγκεκριμένη γλώσσα προέλευσης. Επιλέξτε μία στις ρυθμίσεις αντί για την αυτόματη ανίχνευση."
+
+#: consts.rocrnopacks
+msgid "No OCR language packs are installed on this system."
+msgstr "Δεν έχουν εγκατασταθεί πακέτα γλωσσών OCR σε αυτό το σύστημα."
 
 #: consts.ropenpofiletr
 msgctxt "consts.ropenpofiletr"
@@ -67,6 +97,15 @@ msgstr " για αφαίρεση ζεύγους"
 msgctxt "consts.rtranslate"
 msgid "Translate (Ctrl ¦ Shift + Enter, Triple Enter)"
 msgstr "Μετάφραση (Ctrl ¦ Shift + Enter, Triple Enter)"
+
+#: consts.rtranslateinmainwindow
+msgid "Translate In Main Window"
+msgstr "Μετάφραση στο κύριο παράθυρο"
+
+#: consts.rtranslateinpopup
+msgctxt "consts.rtranslateinpopup"
+msgid "Translate In Popup"
+msgstr "Μετάφραση σε αναδυόμενο παράθυρο"
 
 #: consts.rtranslatestop
 msgid "Stop Translation (Esc)"
@@ -726,6 +765,18 @@ msgctxt "formsettings.rtransfromcontrol_hint"
 msgid "Translates the selected text from the active application"
 msgstr "Μεταφράζει το επιλεγμένο κείμενο από την ενεργή εφαρμογή"
 
+#: formsettings.rtransocr
+msgid "Translate From Screen Area (OCR)"
+msgstr "Μετάφραση από περιοχή οθόνης (OCR)"
+
+#: formsettings.rtransocr_default
+msgid "Default Ctrl+Shift+O"
+msgstr "Προεπιλογή Ctrl+Shift+O"
+
+#: formsettings.rtransocr_hint
+msgid "Recognize text from a selected screen area and translate it"
+msgstr "Αναγνώριση και μετάφραση κειμένου από επιλεγμένη περιοχή της οθόνης"
+
 #: formsettings.rtransswap
 msgctxt "formsettings.rtransswap"
 msgid "Swap Languages (Tray Icon Middle-Click)"
@@ -1326,6 +1377,7 @@ msgid "Apply"
 msgstr "Εφαρμογή"
 
 #: tformsettingstrayslate.btncancel.caption
+msgctxt "tformsettingstrayslate.btncancel.caption"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
@@ -2135,8 +2187,9 @@ msgid "Paste"
 msgstr "Επικόλληση"
 
 #: tformtrayslate.apopuptranslate.caption
-msgid "Popup Translate"
-msgstr "Αναδυόμενη μετάφραση"
+msgctxt "tformtrayslate.apopuptranslate.caption"
+msgid "Translate In Popup"
+msgstr "Μετάφραση σε αναδυόμενο παράθυρο"
 
 #: tformtrayslate.aselectall.caption
 msgctxt "tformtrayslate.aselectall.caption"
@@ -2169,6 +2222,10 @@ msgstr "Μετάφραση (Ctrl ¦ Shift ¦ Enter + Enter)"
 #: tformtrayslate.atranslateclipboard.caption
 msgid "Translate Clipboard"
 msgstr "Μετάφραση πρόχειρου"
+
+#: tformtrayslate.atranslateocr.caption
+msgid "Translate Screen Area (OCR)"
+msgstr "Μετάφραση περιοχής οθόνης (OCR)"
 
 #: tformtrayslate.aundo.caption
 msgctxt "tformtrayslate.aundo.caption"

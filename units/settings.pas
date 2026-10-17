@@ -200,6 +200,9 @@ begin
     JSONObj.Add('HotKeyTransControlPopup_Modifiers', Form.HotKeyTransControlPopup.Modifiers);
     JSONObj.Add('HotKeyTransControlPopup_Key', Form.HotKeyTransControlPopup.Key);
 
+    JSONObj.Add('HotKeyTransOCR_Modifiers', Form.HotKeyTransOCR.Modifiers);
+    JSONObj.Add('HotKeyTransOCR_Key', Form.HotKeyTransOCR.Key);
+
     // Save HotKeys Fast Settings
     JSONObj.Add('HotKeyFastAllowHotKeys_Modifiers', Form.HotKeyFastAllowHotKeys.Modifiers);
     JSONObj.Add('HotKeyFastAllowHotKeys_Key', Form.HotKeyFastAllowHotKeys.Key);
@@ -713,6 +716,14 @@ begin
         if JSONObj.FindPath('HotKeyTransControlPopup_Key') <> nil then
           HK.Key := JSONObj.FindPath('HotKeyTransControlPopup_Key').AsInteger;
         Form.HotKeyTransControlPopup := HK;
+
+        // HotKeyTransOCR
+        HK := Form.HotKeyTransOCR;
+        if JSONObj.FindPath('HotKeyTransOCR_Modifiers') <> nil then
+          HK.Modifiers := JSONObj.FindPath('HotKeyTransOCR_Modifiers').AsInteger;
+        if JSONObj.FindPath('HotKeyTransOCR_Key') <> nil then
+          HK.Key := JSONObj.FindPath('HotKeyTransOCR_Key').AsInteger;
+        Form.HotKeyTransOCR := HK;
 
         // Load HotKeys Fast Settings
 
