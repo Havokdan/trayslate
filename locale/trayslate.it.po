@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Trayslate - Italian - 31.08.2026\n"
+"Project-Id-Version: Trayslate - Italian - 18.10.2026\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: bovirus <bovirus@gmail.com>\n"
@@ -53,7 +53,7 @@ msgstr "File configurazione non trovato! Crealo con l'editor configurazione."
 
 #: consts.rnorecognized
 msgid "No text was recognized in the selected area. Try selecting a different region."
-msgstr "Nessun testo è stato riconosciuto nell’area selezionata. Prova a selezionare un’altra area."
+msgstr "Nell’area selezionata non è stato riconosciuto nessun testo. Prova a selezionare un’altra area."
 
 #: consts.rocrlanguagenotsupported
 #, object-pascal-format
@@ -61,7 +61,7 @@ msgid ""
 "No OCR engine is installed for language \"%s\".\n"
 "Supported languages: %s"
 msgstr ""
-"Non è installato alcun motore OCR per la lingua \"%s\".\n"
+"Non è installato alcun motore OCR per la lingua '%s'.\n"
 "Lingue supportate: %s"
 
 #: consts.rocrneedlang
@@ -70,7 +70,7 @@ msgstr "L’OCR dello schermo richiede una lingua di origine specifica. Selezion
 
 #: consts.rocrnopacks
 msgid "No OCR language packs are installed on this system."
-msgstr "Su questo sistema non sono installati pacchetti linguistici OCR."
+msgstr "In questo sistema non sono installati pacchetti lingue OCR."
 
 #: consts.ropenpofiletr
 msgctxt "consts.ropenpofiletr"
@@ -776,11 +776,11 @@ msgstr "Traduci da un’area dello schermo (OCR)"
 
 #: formsettings.rtransocr_default
 msgid "Default Ctrl+Shift+O"
-msgstr "Predefinito Ctrl+Shift+O"
+msgstr "Predefinito Ctrl+Maiusc+O"
 
 #: formsettings.rtransocr_hint
 msgid "Recognize text from a selected screen area and translate it"
-msgstr "Riconosci il testo da un’area selezionata dello schermo e traducilo"
+msgstr "Riconosci il testo in un’area selezionata dello schermo e traducilo"
 
 #: formsettings.rtransswap
 msgctxt "formsettings.rtransswap"
