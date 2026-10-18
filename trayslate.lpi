@@ -166,6 +166,7 @@
         <ComponentName Value="formTrayslate"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="MainForm"/>
       </Unit>
       <Unit>
         <Filename Value="forms\formsettings.pas"/>
@@ -217,6 +218,7 @@
       <Unit>
         <Filename Value="units\settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="Settings"/>
       </Unit>
       <Unit>
         <Filename Value="units\translate.pas"/>

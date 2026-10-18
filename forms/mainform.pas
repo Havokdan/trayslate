@@ -4929,10 +4929,14 @@ begin
   RealPair := UpdatePairLanguage(Pair);
   PairHint := LongestString(Pair.SplitIntoTwoParts(':', True), MAX_LANG_LENGTH);
 
-  // Remove if already exists
+  // Remove if already exists; hints must be removed in sync, otherwise
+  // their indexes drift and each pair ends up with a foreign hint
   idx := FLangPairs.IndexOf(FConfigFile + '=' + RealPair);
   if (idx >= 0) and (FLangPairs.Names[idx] = FConfigFile) then
+  begin
     FLangPairs.Delete(idx);
+    FLangPairsHint.Delete(idx);
+  end;
 
   if ToEnd then
   begin
