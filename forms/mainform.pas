@@ -905,6 +905,11 @@ begin
   FProxiedConfigs := TStringList.Create;
   FEnabledLanguages := TStringList.Create;
 
+  // Force memo handles before loading text: TRichMemo may drop content
+  // assigned through Lines when its native window is created later
+  MemoSource.HandleNeeded;
+  MemoTarget.HandleNeeded;
+
   // Load form settings
   FFormSettingsLoaded := LoadFormSettings(Self, FFirstRun);
 
