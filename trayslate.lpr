@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-program trayslate;
+program Trayslate;
 
 {$mode objfpc}{$H+}
 {$codepage utf8}
@@ -20,8 +20,8 @@ uses
   opensslsockets,
   Consts,
   AppInstance,
-  mainform,
-  localize
+  MainForm,
+  Localize
   {$IFDEF WINDOWS}
   ,uDarkStyle
   ,uWin32WidgetSetDark
@@ -54,6 +54,6 @@ begin
   Application.CreateForm(TformTrayslate, formTrayslate);
   SetAppInstanceMessageEvent(@formTrayslate.OnAppInstanceMessage);
   TLocalize.ApplicationTranslate(APP_NAME, Language, nil, TLocalize.LoadCustomPoFile(formTrayslate.CustomPoFile));
-  TLocalize.UpdatePackageTranslations(APP_NAME, 'checkupdates', Language, ['checkupdates']);
+  TLocalize.UpdatePackageTranslations(APP_NAME, 'checkupdates', Language, ['CheckUpdates']);
   Application.Run;
 end.

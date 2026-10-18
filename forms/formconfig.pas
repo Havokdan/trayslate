@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit formconfig;
+unit FormConfig;
 
 {$mode ObjFPC}{$H+}
 
@@ -34,7 +34,7 @@ uses
   SynEditTypes,
   SynHighlighterPas,
   SynEditHighlighterFoldBase,
-  oneshottooltip;
+  OneShotTooltip;
 
 type
 
@@ -317,8 +317,8 @@ resourcestring
 
 implementation
 
-uses Consts, mainform, formsettings, translate, languages, network, stringhelper, base64utils,
-  localize, darkutils, controlshelper, osutils;
+uses Consts, MainForm, FormSettings, Translate, Languages, Network, StringHelper, Base64Utils,
+  Localize, DarkUtils, ControlsHelper, OSUtils;
 
   {$R *.lfm}
 

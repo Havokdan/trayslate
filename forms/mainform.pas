@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit mainform;
+unit MainForm;
 
 {$mode ObjFPC}{$H+}
 {$codepage utf8}
@@ -43,21 +43,21 @@ uses
   MouseAndKeyInput,
   RichMemo,
   OneShotTimer,
-  globalkeyboardhook,
-  globalmousehook,
+  GlobalKeyboardHook,
+  GlobalMouseHook,
   FormGrip,
-  translate,
-  network,
+  Translate,
+  Network,
   Consts,
   SpellChecker,
   WinOCRApi,
-  osutils,
-  stringhelper,
-  hotkeyhelper,
-  stringshelper,
-  clipboardhelper,
-  oneshothint,
-  textdroptarget;
+  OSUtils,
+  StringHelper,
+  HotkeyHelper,
+  StringsHelper,
+  ClipboardHelper,
+  OneShotHint,
+  TextDropTarget;
 
 type
 
@@ -802,8 +802,8 @@ var
 
 implementation
 
-uses formdonate, formabout, formsettings, formconfig, formpopup, formbutton, settings, languages, langdetect,
-  checkupdates, base64utils, localize, colorhelper, controlshelper, darkutils, pascalutils, flatbutton,
+uses FormDonate, FormAbout, FormSettings, FormConfig, FormPopup, FormButton, Settings, Languages, LangDetect,
+  CheckUpdates, Base64Utils, Localize, ColorHelper, ControlsHelper, DarkUtils, PascalUtils, FlatButton,
   RichMemoHelper, OneShotThread;
 
   {$R *.lfm}

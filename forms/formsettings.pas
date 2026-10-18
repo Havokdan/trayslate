@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit formsettings;
+unit FormSettings;
 
 {$mode ObjFPC}{$H+}
 
@@ -36,9 +36,9 @@ uses
   LCLType,
   LCLIntf,
   Consts,
-  hotkeyhelper,
-  stringhelper,
-  network;
+  HotKeyHelper,
+  StringHelper,
+  Network;
 
 type
 
@@ -466,7 +466,7 @@ resourcestring
 
 implementation
 
-uses mainform, formpopup, languages, translate, localize, darkutils, controlshelper, stringshelper, stringgridhelper, pascalutils,
+uses MainForm, FormPopup, Languages, Translate, Localize, DarkUtils, ControlsHelper, StringsHelper, StringGridHelper, PascalUtils,
   OneShotTooltip, SpellUtils;
 
   {$R *.lfm}

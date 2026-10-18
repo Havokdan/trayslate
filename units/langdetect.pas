@@ -20,7 +20,7 @@
 //  Cross-platform: Windows, Linux, macOS.  Lazarus / FPC 3.2.2+
 //-----------------------------------------------------------------------------------
 
-unit langdetect;
+unit LangDetect;
 
 {$mode objfpc}{$H+}
 {$codepage utf8}
@@ -33,7 +33,7 @@ uses
   Classes,
   LCLType,
   LazUTF8,
-  osutils;
+  OSUtils;
 
 const
   UNKNOWN = 'unknown';

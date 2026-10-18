@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit translate;
+unit Translate;
 
 {$mode objfpc}{$H+}
 
@@ -24,8 +24,8 @@ uses
   IniFiles,
   fpjson,
   jsonparser,
-  scriptrunner,
-  network,
+  ScriptRunner,
+  Network,
   {$PUSH}
   {$WARNINGS OFF}
   {$HINTS OFF}
@@ -228,7 +228,7 @@ const
 
 implementation
 
-uses Consts, mainform, stringshelper, stringhelper, localize, osutils, languages;
+uses Consts, MainForm, StringsHelper, StringHelper, Localize, OSUtils, Languages;
 
   {%Region -fold TTranslate }
 

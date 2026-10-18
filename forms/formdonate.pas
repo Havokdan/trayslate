@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit formdonate;
+unit FormDonate;
 
 {$mode ObjFPC}{$H+}
 
@@ -17,7 +17,8 @@ uses
   Buttons,
   Clipbrd,
   Graphics,
-  LCLIntf, ExtCtrls;
+  ExtCtrls,
+  LCLIntf;
 
 type
 
@@ -43,7 +44,7 @@ var
 
 implementation
 
-uses Consts, mainform, localize, darkutils;
+uses Consts, MainForm, Localize, DarkUtils;
 
   {$R *.lfm}
 

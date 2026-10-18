@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit formbutton;
+unit FormButton;
 
 {$mode ObjFPC}{$H+}
 
@@ -71,7 +71,7 @@ const
 
 implementation
 
-uses Consts, mainform, localize, darkutils, osutils, hotkeyhelper;
+uses Consts, MainForm, Localize, DarkUtils, OSUtils, HotKeyHelper;
 
   {$R *.lfm}
 

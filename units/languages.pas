@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit languages;
+unit Languages;
 
 {$mode objfpc}{$H+}
 
@@ -19,7 +19,7 @@ uses
   FPImage,
   FPReadPNG,
   LResources,
-  translate;
+  Translate;
 
 type
   { TAppValue }
@@ -69,7 +69,7 @@ type
 
 implementation
 
-uses stringshelper;
+uses StringsHelper;
 
   {$include languages_data.inc}
   {$include currency_data.inc}

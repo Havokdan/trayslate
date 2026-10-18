@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit settings;
+unit Settings;
 
 {$mode ObjFPC}{$H+}
 {$codepage utf8}
@@ -20,7 +20,7 @@ uses
   fpjson,
   jsonparser,
   Graphics,
-  mainform;
+  MainForm;
 
 procedure SaveFormSettings(Form: TformTrayslate);
 
@@ -28,7 +28,7 @@ function LoadFormSettings(Form: TformTrayslate; out FirstRun: boolean): boolean;
 
 implementation
 
-uses hotkeyhelper, localize, network, darkutils, osutils, Consts, RichMemoHelper;
+uses HotKeyHelper, Localize, Network, DarkUtils, OSUtils, Consts, RichMemoHelper;
 
 procedure SaveFormSettings(Form: TformTrayslate);
 var

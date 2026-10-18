@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit scriptrunner;
+unit ScriptRunner;
 
 {$mode objfpc}{$H+}
 
@@ -20,8 +20,8 @@ uses
   uPSComponent,
   uPSCompiler,
   uPSUtils, // uPSUtils provides btString, btS32
-  osutils,
-  stringhelper;
+  OSUtils,
+  StringHelper;
 
 type
   { TScriptRunner

@@ -4,7 +4,7 @@
 //  You may obtain a copy of the License at https://www.gnu.org/licenses/gpl-3.0.html
 //-----------------------------------------------------------------------------------
 
-unit formpopup;
+unit FormPopup;
 
 {$mode ObjFPC}{$H+}
 
@@ -28,7 +28,7 @@ uses
   LCLIntf,
   LMessages,
   RichMemo,
-  textdroptarget
+  TextDropTarget
   {$IFDEF WINDOWS}
   ,Windows
   {$ENDIF}
@@ -149,7 +149,7 @@ var
 
 implementation
 
-uses Consts, mainform, formsettings, localize, darkutils, pascalutils, osutils, hotkeyhelper, RichMemoHelper;
+uses Consts, MainForm, FormSettings, Localize, DarkUtils, PascalUtils, OSUtils, HotKeyHelper, RichMemoHelper;
 
   {$R *.lfm}
 
